@@ -4,28 +4,20 @@ import json
 import os
 from crawler import Crawler
 from scraper import Scraper
+from rq import Queue
+from worker import conn
+from index_site import index_site
 
 app = Flask(__name__)
+q = Queue(connection=conn)
 
 @app.route("/")
 def main():
-    try:
-        url = request.args.get('url')
-        userId = request.args.get('userId')
+    url = request.args.get('url')
+    userId = request.args.get('userId')
 
-        domain = url.split("//")[-1].split("/")[0]
-
-        crawler = Crawler()
-        crawler.crawl(url)
-
-        scraper = Scraper(userId)
-
-        for url in crawler.content[domain].keys():
-            scraper.scrape(domain+url)
-
-        return json.dumps(True)
-    except:
-        return json.dumps(False)
+    q.enqueue(index_site, url, userId)
+    return json.dumps(True)
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
