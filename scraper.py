@@ -21,7 +21,7 @@ class Scraper(object):
         article = g.extract(url=url)
 
         ######
-        query = 'INSERT INTO pages (user_id, url, title, meta_description, content) VALUES (%s, "%s", "%s", "%s", "%s")'
+        query = 'INSERT INTO pages (user_id, url, title, meta_description, content) VALUES (%s, %s, %s, %s, %s)'
         self.cur.execute(query, (self.user_id, url, article.title, article.meta_description, article.cleaned_text))
         self.db.commit()
 
