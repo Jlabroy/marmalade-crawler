@@ -10,7 +10,7 @@ class Scraper(object):
                                    user=os.environ['DATABASE_USER'],
                                    password=os.environ['DATABASE_PASSWORD'],
                                    host=os.environ['DATABASE_HOST'],
-                                   port=os.environ['DATABASE_POST'],
+                                   port=os.environ['DATABASE_PORT'],
                                    sslmode='require')
 
         self.cur = self.db.cursor()
