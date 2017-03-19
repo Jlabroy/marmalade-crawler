@@ -6,7 +6,7 @@ from crawler import Crawler
 from scraper import Scraper
 from rq import Queue
 from worker import conn
-from index_site import index_site
+from index_site import index_site_func
 
 app = Flask(__name__)
 q = Queue(connection=conn)
@@ -16,7 +16,7 @@ def main():
     url = request.args.get('url')
     userId = request.args.get('userId')
 
-    q.enqueue(index_site, url, userId)
+    q.enqueue(index_site_func, url, userId)
     return json.dumps(True)
 
 if __name__ == "__main__":
