@@ -20,7 +20,7 @@ class Scraper(object):
         g = Goose()
         article = g.extract(url=url)
 
-        print_(article.title);
+        print(article.title);
 
         ######
         query = 'INSERT INTO pages (user_id, url, title, meta_description, content) VALUES (%s, %s, %s, %s, %s)'
