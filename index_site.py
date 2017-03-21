@@ -9,5 +9,5 @@ def index_site_func(url, userId):
 
     scraper = Scraper(userId)
 
-    for url in crawler.content[domain].keys():
-        scraper.scrape(domain+url)
+    for page in crawler.content[domain].keys():
+        scraper.scrape(url+page)
